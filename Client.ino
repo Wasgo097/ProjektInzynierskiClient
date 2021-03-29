@@ -16,14 +16,14 @@ void setup() {
     delay(500);
   }
   Serial.println("Connected!");
-  //Udp.begin(Port);
+  Udp.begin(Port);
 }
 void loop() {
-  sprintf(Buffer,"Data: %d",5);
-  Serial.println(Buffer);
+  sprintf(Buffer,"Data: %d",analogRead(A0));
+  //Serial.println(Buffer);
   if(Udp.beginPacket(Ip, Port)){
     Udp.write(Buffer);
     Udp.endPacket();
   }
-  delay(2000);
+  delay(1000);
 }
