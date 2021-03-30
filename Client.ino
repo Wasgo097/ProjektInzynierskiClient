@@ -1,8 +1,9 @@
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
 WiFiUDP Udp;
-const char Ssid[] = "SMIERCIONOSNE 5G 300% MOCY";
-const char Password[] = "0987654321";
+const char Ssid[] = "****";
+const char Password[] = "****";
+const char Device[] = "Dev:X_";
 const unsigned int Port = 7654;
 const char Ip[] = "192.168.99.58";
 const int Buffer_size=255;
@@ -17,9 +18,10 @@ void setup() {
   }
   Serial.println("Connected!");
   Udp.begin(Port);
+  pinMode(A0,INPUT);
 }
 void loop() {
-  sprintf(Buffer,"Data: %d",analogRead(A0));
+  sprintf(Buffer,"Data:%d_%s",analogRead(A0),Device);
   //Serial.println(Buffer);
   if(Udp.beginPacket(Ip, Port)){
     Udp.write(Buffer);
