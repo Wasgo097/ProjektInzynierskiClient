@@ -1,12 +1,12 @@
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
-#define slave
-//#define master
+#define DEBUG
 WiFiUDP Udp;
 const char Ssid[] = "SSID";
-const char Password[] = "Pass";
-const char Ip[] = "Server.local.ip.address";
-const int DeviceID = 1;
+const char Password[] = "PASS";
+const char Ip[] = "server.local.ip.adress";
+//1 for master, 2 .... for slave
+const int DeviceID = 3;
 const unsigned int Port = 7654;
 const int Buffer_size=255;
 char Buffer[Buffer_size]; 
@@ -23,14 +23,10 @@ void setup() {
   pinMode(A0,INPUT);
 }
 void loop() {
-  #ifdef slave
   sprintf(Buffer,"%d|%d",DeviceID,analogRead(A0));
-  #elif  master
-  sprintf(Buffer,"%d|%d|%d",DeviceID,Temperature,Humidity);
-  #else
-  sprintf(Buffer,"Error");
+  #ifdef DEBUG
+  Serial.println(Buffer);
   #endif
-  //Serial.println(Buffer);
   if(Udp.beginPacket(Ip, Port)){
     Udp.write(Buffer);
     Udp.endPacket();
