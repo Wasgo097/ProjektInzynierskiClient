@@ -1,14 +1,16 @@
 #include "DHT.h"
 #define DHTPIN 2
 #define DHTTYPE DHT11// DHT 11
-#define DEBUG
+//#define DEBUG
 DHT dht(DHTPIN, DHTTYPE);
+const int Buffer_size=255;
+char Buffer[Buffer_size]; 
+float Humidity=0.0,Temperature=0.0;
 void setup() {
   Serial.begin(9600);
   Serial.println(F("DHTxx test!"));
   dht.begin();
 }
-float Humidity=0.0,Temperature=0.0;
 void loop() {
   delay(1000);
   float h = dht.readHumidity();
@@ -28,6 +30,9 @@ void loop() {
     Serial.print("°C ");
     Serial.println("");
     #endif
+    sprintf(Buffer,"%d|%d|%d",1,int(Temperature),int(Humidity));
+    Serial.write(Buffer);
+    Serial.println("");
   }
 }
 /////ADITIONAL LIBRARES
