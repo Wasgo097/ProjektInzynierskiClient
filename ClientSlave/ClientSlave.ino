@@ -1,6 +1,6 @@
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
-#define DEBUG
+//#define DEBUG
 WiFiUDP Udp;
 const char Ssid[] = "SSID";
 const char Password[] = "PASS";
@@ -23,7 +23,7 @@ void setup() {
   pinMode(A0,INPUT);
 }
 void loop() {
-  sprintf(Buffer,"%d|%d",DeviceID,analogRead(A0));
+  sprintf(Buffer,"%d|%d;",DeviceID,analogRead(A0));
   #ifdef DEBUG
   Serial.println(Buffer);
   #endif
