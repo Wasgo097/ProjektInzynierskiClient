@@ -8,11 +8,12 @@ char Buffer[Buffer_size];
 float Humidity=0.0,Temperature=0.0;
 void setup() {
   Serial.begin(9600);
-  Serial.println(F("DHTxx test!"));
+  #ifdef DEBUG
+    Serial.println("DHTxx test!");
+  #endif
   dht.begin();
 }
 void loop() {
-  delay(1000);
   float h = dht.readHumidity();
   float t = dht.readTemperature();
   if (isnan(h) || isnan(t)) {
@@ -30,9 +31,12 @@ void loop() {
     Serial.print("°C ");
     Serial.println("");
     #endif
-    sprintf(Buffer,"%d|%d|%d",1,int(Temperature),int(Humidity));
-    Serial.write(Buffer);
-    Serial.println("");
+    sprintf(Buffer,"%d|%d|%d;",1,int(Temperature),int(Humidity));
+    if(Serial.availableForWrite()>strlen(Buffer)){
+      Serial.print(Buffer);
+      Serial.flush();
+    }
+    delay(1000);
   }
 }
 /////ADITIONAL LIBRARES
