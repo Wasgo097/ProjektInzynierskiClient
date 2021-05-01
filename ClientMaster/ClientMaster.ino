@@ -1,6 +1,6 @@
 #include "DHT.h"
 #define DHTPIN 2
-#define DHTTYPE DHT11// DHT 11
+#define DHTTYPE DHT11 //DHT 11
 //#define DEBUG
 DHT dht(DHTPIN, DHTTYPE);
 const int Buffer_size=255;
@@ -23,7 +23,7 @@ void loop() {
   if(h!=Humidity||t!=Temperature){
     Humidity=h;
     Temperature=t;
-    #ifdef DEBUG
+    #ifdef DEBUG //only when you dont want read on server serial
     Serial.print("New Measurement! Humidity: ");
     Serial.print(Humidity);
     Serial.print("%  Temperature: ");
