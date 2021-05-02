@@ -21,6 +21,14 @@ void setup() {
   Serial.println("Connected!");
   Udp.begin(Port);
   pinMode(A0,INPUT);
+  //waiting for the sensor to be ready to send valid data
+  for(int i=0;i<10;i++){
+    int temp=analogRead(A0);
+    #ifdef DEBUG
+    Serial.println(temp);
+    #endif
+    delay(500);
+  }
 }
 void loop() {
   sprintf(Buffer,"%d|%d;",DeviceID,analogRead(A0));
