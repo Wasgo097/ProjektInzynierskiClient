@@ -10,8 +10,9 @@ const int DeviceID = 3;
 const unsigned int Port = 7654;
 const int Buffer_size=255;
 char Buffer[Buffer_size]; 
+const int Delay=4000;
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   WiFi.mode(WIFI_STA);
   WiFi.begin(Ssid, Password);
   while (WiFi.status() != WL_CONNECTED) {
@@ -25,9 +26,11 @@ void setup() {
   for(int i=0;i<10;i++){
     int temp=analogRead(A0);
     #ifdef DEBUG
-    Serial.println(temp);
+    Serial.print("Waiting for valid data: ");
+    Serial.print(temp);
+    Serial.println("");
     #endif
-    delay(500);
+    delay(1000);
   }
 }
 void loop() {
@@ -39,5 +42,5 @@ void loop() {
     Udp.write(Buffer);
     Udp.endPacket();
   }
-  delay(1000);
+  delay(Delay);
 }

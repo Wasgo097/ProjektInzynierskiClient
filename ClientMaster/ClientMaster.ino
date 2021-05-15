@@ -7,8 +7,8 @@ DHT dht(DHTPIN, DHTTYPE);
 const int Buffer_size=255;
 char Buffer[Buffer_size]; 
 int Humidity=0,Temperature=0;
-const int Skip_delay=7000;
-const int Delay=500;
+const int Skip_delay=8000;
+const int Delay=2000;
 int Cycle=0;
 void setup() {
   Serial.begin(9600);
@@ -37,6 +37,7 @@ void loop() {
     Serial.println("");
     Serial.flush();
     #endif
+    //1 is device id - 1 means master
     sprintf(Buffer,"%d|%d|%d;",1,Temperature,Humidity);
     int len=strlen(Buffer);
     #ifdef DEBUG2
